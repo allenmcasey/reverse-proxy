@@ -1,6 +1,6 @@
 # reverse-proxy
 
-Author: Allen Casey
+Author: Allen Casey <br/>
 Email:  allencasey337@gmail.com
 
 This project small-scale implementation of a reverse proxy distributed system, implemented for an assignment in COSC 6377 - Graduate Computer Networking at the University of Houston.
