@@ -4,28 +4,28 @@ from _thread import *
 import pickle
 import sys
 
-# TODO (maybe) exit keyword for servers
-# servers listen for a keyword (e.g., 'exit') and terminate
-# when it is inputted by the user
-
 
 def handle_connection(client):
 
     # data received from client
     json_data = pickle.loads(client.recv(1024))
-    print("message received from client via proxy. client id:", json_data["srcid"])
 
-    # update payload with its SHA1 hash and return to client
-    json_data["payload"] = str(hashlib.sha1(json_data["payload"].encode("ascii")).hexdigest())
-    json_data["type"] = 2
-    client.send(pickle.dumps(json_data))
+    # if client request
+    if json_data["type"] == 0:
+
+        # update payload with its SHA1 hash and return to client
+        print("message received from client via proxy. client id:", json_data["srcid"])
+        json_data["payload"] = str(hashlib.sha1(json_data["payload"].encode("ascii")).hexdigest())
+        json_data["type"] = 2
+        client.send(pickle.dumps(json_data))
+
     client.close()
 
 
 def Main():
 
     localhost = "127.0.0.1"
-    reverse_policy_port = 10000
+    reverse_proxy_port = 10000
     this_id = int(sys.argv[1])
     this_policy = int(sys.argv[2])
     this_port = int(sys.argv[3])
@@ -37,8 +37,8 @@ def Main():
     print("server socket listening... bound to port", this_port)
 
     # create socket with reverse proxy
-    rp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    rp.connect((localhost, reverse_policy_port))
+    reverse_proxy_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    reverse_proxy_socket.connect((localhost, reverse_proxy_port))
 
     # create a setup packet
     setup_json_data = {
@@ -49,15 +49,14 @@ def Main():
     }
 
     # send setup packet to RP
-    rp.send(pickle.dumps(setup_json_data))
-    rp.close()
+    reverse_proxy_socket.send(pickle.dumps(setup_json_data))
+    reverse_proxy_socket.close()
 
     while True:
 
         # accept a new connection
-        c, address = in_socket.accept()
-        print("Connected to:", address[0], "on port", address[1])
-        start_new_thread(handle_connection, (c,))
+        connection, address = in_socket.accept()
+        start_new_thread(handle_connection, (connection,))
 
 
 if __name__ == '__main__':
