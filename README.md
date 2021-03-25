@@ -1,6 +1,9 @@
 # reverse-proxy
 
-A small-scale implementation of a reverse proxy distributed system, implemented for an assignment in COSC 6377 - Graduate Computer Networking at the University of Houston.
+Author: Allen Casey
+Email:  allencasey337@gmail.com
+
+This project small-scale implementation of a reverse proxy distributed system, implemented for an assignment in COSC 6377 - Graduate Computer Networking at the University of Houston.
 
 In a typical reverse proxy system, there are two types of entities. First, we have the reverse proxy that keeps track of different devices that are connected and accessible through it. Second, the devices or nodes that connect to the reverse proxy. In our setup, there are two types of nodes -- client, which needs to send messages to a server, which is the second type of node. The reverse proxy and client/server are implemented in Python using basic socket interface. 
 
