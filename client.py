@@ -15,13 +15,18 @@ rp_socket.connect((localhost, rp_port))
 
 while True:
 
-    # fetch and serialize message, then send
+    # read/serialize message, then send/receive
     json_file = open(json_filename, "r")
     json_file_data = json.load(json_file)
     rp_socket.send(pickle.dumps(json_file_data))
-
-    # response received from server, get expected/received hashes
     json_received_data = pickle.loads(rp_socket.recv(1024))
+
+    # check if this is an error response
+    if json_received_data["type"] == -1:
+        print("Requested policy not found, please try again later...")
+        break
+
+    # get expected/received hashes
     expected_hash = str(hashlib.sha1(json_file_data['payload'].encode('ascii')).hexdigest())
     received_hash = json_received_data['payload']
 
