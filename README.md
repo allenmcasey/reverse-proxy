@@ -14,11 +14,10 @@ This system has a single reverse proxy and multiple clients and servers. The cli
 
 In the home directory of the repository, start the reverse proxy by typing ``python3 reverse_proxy.py 10000``.<br/><br/>
 
-Next, type ``./start_servers.sh`` to start a set of servers identified by one of three different policies.<br/><br/>
+Next, start the server(s) by typing ``python3 server.py SERVER_ID POLICY PORT``, repling the all-caps arguments with integers of your choice. You can cahnge up the policy number to create servers of different policies, but all server ports you create must be unique.<br/><br/>
 
-To execute a couple dozen client requests that ask for permutations of all three available policies, type ``./test_clients.sh``. For each successful message from client -> reverse proxy -> server, you will see ``Transmission successfully received by server`` in the terminal.<br/><br/>
+To execute a client request, type ``python3 client.py CLIENT_ID PROXY_PORT JSON_FILENAME``. For each successful message from client -> reverse proxy -> server, you will see ``Transmission successfully received by server`` in the terminal.<br/><br/>
 
-After you have finished testing the system, type ``./clean.sh`` to clean up the remaining server processes.
 
 
 
