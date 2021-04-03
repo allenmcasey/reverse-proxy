@@ -3,11 +3,9 @@
 Author: Allen Casey <br/>
 Email:  allencasey337@gmail.com
 
-This project is a small-scale implementation of a reverse proxy distributed system.
+This project is a small-scale implementation of a reverse proxy distributed system, implemented using the Python socket interface.
 
-In a typical reverse proxy system, there are two types of entities. First, we have the reverse proxy that keeps track of different devices that are connected and accessible through it. Second, the devices or nodes that connect to the reverse proxy. In this setup, there are two types of nodes -- clients, which need to send messages to a server, which is the second type of node. The reverse proxy and client/server are implemented in Python using the basic socket interface. 
-
-This system has a single reverse proxy and multiple clients and servers. The clients send JSON messages to a well-known port on the reverse proxy, which forwards the message to any server identified by a specific privacy policy, and the responding server sends to the client a SHA1 hash of the message. The client can then check if the server received the message correctly and display an appropriate transmission status message on the terminal. 
+In a typical reverse proxy system, there are three components: clients, servers, and the reverse proxy application itself. This system contains one reverse proxy and multiple clients and servers. The clients and servers both connect to the reverse proxy, which acts like a middleman between the two other groups of applications. The clients send JSON requests to a well-known port on the reverse proxy, which forwards the message to an appropriate server identified by a privacy policy indicated in the client request packet. Here, the reverse proxy utilizes a round robin scheme to facilitate load-balancing among servers of each policy group. The responding server sends a SHA1 hash of the client's message back to the reverse proxy, which the reverse proxy then forwards back to the client. The client can then check if the server received the message correctly and display an appropriate transmission status message on the terminal.
 
 ## Testing the project 
 
