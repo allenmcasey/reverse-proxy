@@ -7,7 +7,7 @@ This project is a small-scale implementation of a reverse proxy distributed syst
 
 In a typical reverse proxy system, there are three components: clients, servers, and the reverse proxy application itself. This system contains one reverse proxy and multiple clients and servers. The clients and servers both connect to the reverse proxy, which acts like a middleman between the two other groups of applications. The clients send JSON requests to a well-known port on the reverse proxy, which forwards the message to an appropriate server identified by a privacy policy indicated in the client request packet. Here, the reverse proxy utilizes a round robin scheme to facilitate load-balancing among servers of each policy group. The responding server sends a SHA1 hash of the client's message back to the reverse proxy, which the reverse proxy then forwards back to the client. The client can then check if the server received the message correctly and display an appropriate transmission status message on the terminal.
 
-## Testing the project 
+## Testing the Project 
 
 In the home directory of the repository, start the reverse proxy by typing ``python3 reverse_proxy.py 10000``.<br/><br/>
 
