@@ -17,7 +17,7 @@ To execute a client request, type ``python3 client.py CLIENT_ID PROXY_PORT JSON_
 
 ## Fault Tolerance of the System
 
-I implemented a fault-tolerance feature in the system that performs periodic health checks on the servers listed in the policy table. This way, the reverse proxy program can actively detect when servers fail, and update the policy table accordingly. To implement this, I created a separate threaded method running at all times in the reverse proxy program. Once each second, this method loops through the entire policy table and makes test connections with each server. When a connection is refused, the server listing is removed from the policy table, and the round robin index for that policy is reset to 0 to avoid any out-of-bounds errors. Note: if the scale of the system were to grow much larger (with many more servers) the interval of the health check would probably have to be increased to more than one second to accomodate longer search/test times.<br/><br/>
+I implemented a fault-tolerance feature in the system that performs periodic health checks on the servers listed in the policy table. This way, the reverse proxy program can actively detect when servers fail, and update the policy table accordingly. To implement this, I created a separate threaded method running at all times in the reverse proxy program. Once each second, this method loops through the entire policy table and makes test connections with each server. When a connection is refused, the server listing is removed from the policy table, and the round robin index for that policy is reset to 0 to avoid any out-of-bounds errors.<br/><br/>
 
 ## Description of the Client, Server, and Reverse Proxy
 
