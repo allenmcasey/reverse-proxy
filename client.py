@@ -4,8 +4,7 @@ import json
 import pickle
 import sys
 
-
-localhost = '127.0.0.1'
+rp_domain = sys.argv[1]
 rp_port = int(sys.argv[2])
 json_filename = sys.argv[3]
 
@@ -22,7 +21,7 @@ while True:
 
     # create connection to reverse proxy
     rp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    rp_socket.connect((localhost, rp_port))
+    rp_socket.connect((rp_domain, rp_port))
 
     # serialize message, then send/receive
     rp_socket.send(pickle.dumps(json_file_data))
